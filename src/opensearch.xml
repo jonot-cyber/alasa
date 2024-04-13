@@ -1,0 +1,9 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Alasa</ShortName>
+  <LongName>Alasa</LongName>
+  <Description>
+    Shebangs from Duckduckgo, but I made them, so it's not blocked
+  </Description>
+  <InputEncoding>UTF-8></InputEncoding>
+  <Url type="text/html" method="get" template="https://localhost:8080/?q={searchTerms}" />
+</OpenSearchDescription>

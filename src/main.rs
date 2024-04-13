@@ -7,19 +7,20 @@ use warp::{http::Uri, reply::Reply, Filter};
 use crate::entry::get_search;
 
 fn create_uri(search: &str) -> Option<Uri> {
-    if !search.starts_with('!') {
-	return None;
-    }
-    let search = &search[1..];
-    let (shebang, search_term) = search.split_once(' ')?;
-    let search_str = get_search(shebang)?;
-    let uri = search_str.replace("{}", &search_term.replace(' ', "+"));
+    let uri = if search.starts_with('!') {
+	let search = &search[1..];
+	let (shebang, search_term) = search.split_once(' ')?;
+	let search_str = get_search(shebang)?;
+	search_str.replace("{}", &search_term.replace(' ', "+"))
+    } else {
+	format!("https://duckduckgo.com/?q={}", &search.replace(' ', "+"))
+    };
     Uri::from_str(&uri).ok()
 }
 
 #[tokio::main]
 async fn main() {
-    let example1 = warp::get()
+    let root_path = warp::path::end()
         .and(warp::query::<HashMap<String, String>>())
         .map(|p: HashMap<String, String>| match p.get("q") {
 	    Some(name) => {
@@ -28,9 +29,26 @@ async fn main() {
 		    None => "Couldn't create a URL".into_response(),
 		}
 	    },
-	    None => "Bad".into_response(),
+	    None => {
+		warp::redirect::found(Uri::from_static("/index.html")).into_response()
+	    },
 	});
 
+    let index = warp::path("index.html")
+        .map(|| {
+	    warp::reply::html(include_str!("index.html"))
+	});
+    
+    let opensearch = warp::path("opensearch.xml")
+        .map(|| {
+	    include_str!("opensearch.xml")
+	});
+
+    let routes = warp::get()
+        .and(root_path
+            .or(index)
+            .or(opensearch));
+
     println!("Starting!");
-    warp::serve(example1).run((Ipv4Addr::LOCALHOST, 8080)).await
+    warp::serve(routes).run((Ipv4Addr::LOCALHOST, 8080)).await
 }

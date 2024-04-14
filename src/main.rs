@@ -1,6 +1,7 @@
 mod entry;
 
 use std::{collections::HashMap, net::Ipv4Addr, str::FromStr};
+use std::env;
 
 use warp::{http::Uri, reply::Reply, Filter};
 
@@ -49,6 +50,12 @@ async fn main() {
             .or(index)
             .or(opensearch));
 
+    let port_key = "FUNCTIONS_CUSTOMHANDLER_PORT";
+    let port: u16 = match env::var(port_key) {
+        Ok(val) => val.parse().expect("Custom Handler port is bad"),
+        Err(_) => 3000,
+    };
+
     println!("Starting!");
-    warp::serve(routes).run((Ipv4Addr::LOCALHOST, 8080)).await
+    warp::serve(routes).run((Ipv4Addr::LOCALHOST, port)).await
 }

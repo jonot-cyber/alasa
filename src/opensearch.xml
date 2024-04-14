@@ -5,5 +5,8 @@
     Shebangs from Duckduckgo, but I made them, so it's not blocked
   </Description>
   <InputEncoding>UTF-8></InputEncoding>
+  <Image width="512" height="512" type="image/png">
+    https://em-content.zobj.net/source/discord/388/pleading-face_1f97a.png
+  </Image>
   <Url type="text/html" method="get" template="https://search.jonot.me/search?q={searchTerms}" />
 </OpenSearchDescription>

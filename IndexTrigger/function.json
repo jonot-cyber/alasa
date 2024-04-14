@@ -4,7 +4,7 @@
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
-      "route": "search",
+      "route": "index.html",
       "name": "req",
       "methods": [
         "get",

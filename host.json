@@ -14,11 +14,11 @@
   },
   "customHandler": {
     "description": {
-      "defaultExecutablePath": "target/debug/alasa",
+      "defaultExecutablePath": "alasa",
       "workingDirectory": "",
       "arguments": []
     },
-    "enableForwardingHttpRequest": true
+    "enableForwardingHttpRequest": true,
   },
   "extensions": {
 	  "http": {

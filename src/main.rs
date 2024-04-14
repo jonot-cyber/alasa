@@ -21,7 +21,7 @@ fn create_uri(search: &str) -> Option<Uri> {
 
 #[tokio::main]
 async fn main() {
-    let root_path = warp::path::end()
+    let root_path = warp::path("search")
         .and(warp::query::<HashMap<String, String>>())
         .map(|p: HashMap<String, String>| match p.get("q") {
 	    Some(name) => {

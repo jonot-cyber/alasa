@@ -14,7 +14,7 @@ fn create_uri(search: &str) -> Option<Uri> {
 	let search_str = get_search(shebang)?;
 	search_str.replace("{}", &search_term.replace(' ', "+"))
     } else {
-	format!("https://duckduckgo.com/?q={}", &search.replace(' ', "+"))
+	format!("https://google.com/search?q={}", &search.replace(' ', "+"))
     };
     Uri::from_str(&uri).ok()
 }

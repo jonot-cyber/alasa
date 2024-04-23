@@ -4,3 +4,13 @@
   <label for="q">Search:</label>
   <input name="q">
 </form>
+
+<hl></hl>
+Select a default search engine
+<form action="/setengine" method="get">
+  <input type="radio" name="search-engine" value="Google">
+  <label for="Google">Google</label>
+  <input type="radio" name="search-engine" value="DuckDuckGo">
+  <label for="DuckDuckGo">DuckDuckGo</label>
+  <input type="submit">
+</form>
